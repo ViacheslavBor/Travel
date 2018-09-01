@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<style>
+	.error{
+		color:red;
+	}
+	</style>
+</head>
+<body>
+	<form action="/registration" method="POST">
+		{% csrf_token %}
+		{% if messages %}
+		<ul class="messages">
+    		{% for message in messages %}
+			<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+		{% endfor %}
+		</ul>
+		{% endif %}
+		<h1>Registration</h1>
+		Name:<br>
+		<input type="text" name="name"><br>
+		Username:<br>
+		<input type="text" name="username"><br>
+		Password: <br>
+		<input type="password" name="password"><br>
+		<p>*Password should be at least 2 characters</p>
+		Confirm password: <br>
+		<input type="password" name="confirm"><br><br>
+		<input type="Submit" value="Register"><br>
+	</form>
+	<form action="/login" method="POST">
+		{% csrf_token %}
+		<h1>Login</h1>
+		Username:<br>
+		<input type="text" name="username"><br>
+		Password: <br>
+		<input type="password" name="password"><br><br>
+		<input type="Submit" value="Login">
+	</form>
+
+	{% for user in users %}
+		<p>{{user.name}} {{user.username}} {{user.password}}</p>
+	{% endfor %}
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+<h1>Welcome, {{user.name}} </h1>
+	<p>*{{request.session.message}}</p><br>
+	<h2>Your Trip Schedules</h2>
+	<table>
+		<tr>
+			<th> Destination </th>
+			<th> Travel Start Date </th>
+			<th> Travel End Date </th>
+			<th> Plan </th>
+		</tr>
+		{% for trip in user.trips.all %}
+		<tr>
+			<td><a href="/travels/destination/{{trip.id}}">{{trip.destination}}</a></td>
+			<td>{{trip.start}}</td>
+			<td>{{trip.end}}</td>
+			<td>{{trip.description}}</td>
+		</tr>
+		{% endfor %}
+		{% for join in joined %}
+		<tr>
+			<td><a href="/travels/destination/{{join.id}}">{{join.destination}}</a></td>
+			<td>{{join.start}}</td>
+			<td>{{join.end}}</td>
+			<td>{{join.description}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<h2>Other User's Travel Plans</h2>
+	<table>
+		<tr>
+			<th> Name </th>
+			<th> Destination </th>
+			<th> Travel Start Date </th>
+			<th> Travel End Date </th>
+			<th> Do you want to join? </th>
+		</tr>
+		{% for all in other_trips %}
+		<tr>
+			<td>{{all.user.name}}</td>
+			<td><a href="/travels/destination/{{all.id}}">{{all.destination}}</a></td>
+			<td>{{all.start}}</td>
+			<td>{{all.end}}</td>
+			<td><a href="/join/{{all.id}}">join</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+	<a href="/travels/add">Add Travel Plan</a><br><br>
+	<a href="/logout">Logout</a>
+
+
+</body>
+</html>
